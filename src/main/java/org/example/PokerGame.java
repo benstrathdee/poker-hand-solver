@@ -10,19 +10,24 @@ public class PokerGame {
     // Create all the players for the game and set the hand size
     public PokerGame(byte playerCount, byte handSize) {
         if (playerCount <= 0) throw new IllegalArgumentException("A poker game needs more players than that!");
-        if (handSize < 5) throw new IllegalArgumentException("You need at least 5 cards in a hand!");
+        if (handSize < 5) throw new IllegalArgumentException("You need at least 5 cards in each player's hand!");
         for (byte i=0; i<playerCount; i++) {
             players.add(new Player(String.format("Player %d", i+1)));
         }
         this.handSize = handSize;
     }
 
-    // Take a string of cards from the txt file, split it into individual cards
     public void dealCards(String cardsAsString) throws InvalidGameString {
+
+        // Clear all hands from previous game
+        for (Player player : players) player.clearHand();
+
+        // Take a string of cards from the txt file, split it into individual cards
         ArrayList<String> cards = new ArrayList<>(Arrays.asList(cardsAsString.split(" ")));
         if (cards.size() != players.size() * handSize) {
             throw new InvalidGameString(
-                    "The game string is either invalid or it does not contain the right amount of cards."
+                    "The game string is either invalid or it does not contain " +
+                            "the right amount of cards for this many players."
             );
         }
 
@@ -38,9 +43,6 @@ public class PokerGame {
         // Create a dummy player to compare to later in order to find a winner
         Player winner = null;
         int winningRank = 0;
-
-        // Clear all hands from previous game
-        for (Player player : players) player.clearHand();
 
         // Deal out the cards
         dealCards(cardsAsString);

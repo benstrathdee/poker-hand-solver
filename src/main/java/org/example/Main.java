@@ -29,8 +29,13 @@ public class Main {
 
         // play a game of poker for every line from the txt file
         for (String gameAsString : games) {
-            poker.playRound(gameAsString);
+            try {
+                poker.playRound(gameAsString);
+            } catch (InvalidGameString e) {
+                System.out.println("One of the game strings was invalid. Skipped game string!");
+            }
         }
+
 
         // List how many victories each player has
         for (Player player : poker.players) {
