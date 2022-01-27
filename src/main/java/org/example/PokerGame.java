@@ -17,19 +17,12 @@ public class PokerGame {
         this.handSize = handSize;
     }
 
-    public void playRound(String cardsAsString) throws InvalidGameString {
-        // Create a dummy player to compare to later in order to find a winner
-        Player winner = null;
-        int winningRank = 0;
-
-        // Clear all hands from previous game
-        for (Player player : players) player.clearHand();
-
-        // Take a string of cards from the txt file, split it into individual cards
+    // Take a string of cards from the txt file, split it into individual cards
+    public void dealCards(String cardsAsString) throws InvalidGameString {
         ArrayList<String> cards = new ArrayList<>(Arrays.asList(cardsAsString.split(" ")));
         if (cards.size() != players.size() * handSize) {
             throw new InvalidGameString(
-                    "The game string either is invalid or does not contain the right amount of cards."
+                    "The game string is either invalid or it does not contain the right amount of cards."
             );
         }
 
@@ -39,7 +32,20 @@ public class PokerGame {
                 players.get(i).addCard(cards.get(j));
             }
         }
+    }
 
+    public void playRound(String cardsAsString) throws InvalidGameString {
+        // Create a dummy player to compare to later in order to find a winner
+        Player winner = null;
+        int winningRank = 0;
+
+        // Clear all hands from previous game
+        for (Player player : players) player.clearHand();
+
+        // Deal out the cards
+        dealCards(cardsAsString);
+
+        // Decide who won the round
         for (Player player : players) {
             player.sortHand();
             // check for which player had the highest ranking hand
@@ -49,11 +55,11 @@ public class PokerGame {
             } else if (player.evaluateHand() == winningRank) {
                 // if the highest ranking hand is a tie, the winner is the player with the highest card value in hand
                 for (int i=handSize-1; i>=0; i--) {
-                    if (player.hand.get(i).faceValue > winner.hand.get(i).faceValue) {
+                    if (winner != null && player.hand.get(i).faceValue > winner.hand.get(i).faceValue) {
                         winner = player;
                         winningRank = player.evaluateHand();
                         break;
-                    } else if (player.hand.get(i).faceValue < winner.hand.get(i).faceValue) {
+                    } else if (winner != null && player.hand.get(i).faceValue < winner.hand.get(i).faceValue) {
                         break;
                     }
                 }
@@ -61,6 +67,6 @@ public class PokerGame {
         }
 
         // add a victory to the winner's total
-        winner.addVictory();
+        if (winner != null) winner.addVictory();
     }
 }
