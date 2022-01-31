@@ -49,7 +49,6 @@ public class PokerGame {
 
         // Decide who won the round
         for (Player player : players) {
-            player.sortHand();
             // check for which player had the highest ranking hand
             if (player.evaluateHand() > winningRank) {
                 winner = player;

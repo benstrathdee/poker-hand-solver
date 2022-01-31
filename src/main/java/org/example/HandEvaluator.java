@@ -9,8 +9,15 @@ public final class HandEvaluator {
     static int rankInterval = 20;
     static int defaultRank = 1;
 
+
+    // Sorts the hand by face value, then suit value for ease of evaluation
+    public static void sortHand(ArrayList<Card> hand) {
+        hand.sort(new CardComparator());
+    }
+
     // Create a string of card values for checking for straights
     private static String getValuesAsString(ArrayList<Card> hand) {
+        sortHand(hand);
         StringBuilder handValuesString = new StringBuilder();
         for (Card card : hand) {
             handValuesString.append(card.faceValue);
@@ -21,6 +28,7 @@ public final class HandEvaluator {
 
     // Create an array of repeated values from the hand
     public static ArrayList<Byte> getRepeatedValues(ArrayList<Card> hand) {
+        sortHand(hand);
         ArrayList<Byte> handValuesArray = hand.stream()
                 .map(card -> card.faceValue)
                 .collect(Collectors.toCollection(ArrayList::new));

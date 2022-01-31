@@ -18,15 +18,9 @@ public class Player {
         hand.clear();
     }
 
-    // Sorts the player's hand by face value, then suit value for ease of evaluation
-    public void sortHand() {
-        hand.sort(new CardComparator());
-    }
-
     //Use the HandEvaluator to determine what rank the player's hand achieves
     public int evaluateHand() {
         int finalRank = 1;
-        sortHand();
         int[] potentialRanks = new int[] {
             HandEvaluator.hasPair(hand),
             HandEvaluator.hasTwoPairs(hand),
