@@ -92,6 +92,7 @@ public final class HandEvaluator {
     // If all cards share the same suit
     public static int hasFlush(ArrayList<Card> hand) {
         int rankValue = 6;
+        sortHand(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue)) {
             return rankValue * rankInterval + hand.get(hand.size() - 1).faceValue;
         }
