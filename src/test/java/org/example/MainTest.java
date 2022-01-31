@@ -1,6 +1,4 @@
 package org.example;
-
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -35,14 +33,4 @@ public class MainTest {
         poker.playRound("7C 6D 9D 3H 6C QC 2C QS AS 8C");
         assertEquals(4, poker.players.get(1).victories);
     }
-
-//    @Test
-//    public void shouldThrowError() {
-//        byte playerCount = 2;
-//        byte handSize = 5;
-//        PokerGame poker = new PokerGame(playerCount, handSize);
-//        InvalidGameString thrown = Assert.assertThrows(InvalidGameString.class, poker.playRound("assdfsdfsdf"));
-//        Assert.ass(poker.playRound("assdfsdfsdf"));
-//
-//    }
 }
