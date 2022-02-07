@@ -13,7 +13,7 @@ public final class HandEvaluator {
     }
 
     // Create a string of card values for checking for straights
-    private static String getValuesAsString(ArrayList<Card> hand) {
+    public static String getValuesAsString(ArrayList<Card> hand) {
         sortHand(hand);
         StringBuilder handValuesString = new StringBuilder();
         for (Card card : hand) {
@@ -60,7 +60,7 @@ public final class HandEvaluator {
     // rank 8 - four of a kind
     // If there are four repeating values
     public static int hasFourOfAKind(ArrayList<Card> hand) {
-        int length = 4;
+        int length = RankValue.FOUR_OF_A_KIND.length;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length
                 && Objects.equals(repeatedValues.get(0), repeatedValues.get(length - 1))) {
@@ -72,7 +72,7 @@ public final class HandEvaluator {
     // rank 7 - full house
     // If there are 5 repeated values, they have to be a pair and a triple
     public static int hasFullHouse(ArrayList<Card> hand) {
-        int length = 5;
+        int length = RankValue.FULL_HOUSE.length;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return RankValue.FULL_HOUSE.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
@@ -103,7 +103,7 @@ public final class HandEvaluator {
     // rank 4 - three of a kind
     // If there are three repeating values
     public static int hasThreeOfAKind(ArrayList<Card> hand) {
-        int length = 3;
+        int length = RankValue.THREE_OF_A_KIND.length;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return RankValue.THREE_OF_A_KIND.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
@@ -114,7 +114,7 @@ public final class HandEvaluator {
     // rank 3 - two pairs
     // If there are four repeated values, but they're not all the same
     public static int hasTwoPairs(ArrayList<Card> hand) {
-        int length = 4;
+        int length = RankValue.TWO_PAIR.length;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return RankValue.TWO_PAIR.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
@@ -125,7 +125,7 @@ public final class HandEvaluator {
     // rank 2 - single pair
     // If there are two repeated values
     public static int hasPair(ArrayList<Card> hand) {
-        int length = 2;
+        int length = RankValue.PAIR.length;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return RankValue.PAIR.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
