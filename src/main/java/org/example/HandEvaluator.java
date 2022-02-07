@@ -27,9 +27,9 @@ public final class HandEvaluator {
 
 
     // Create an array of repeated values from the hand
-    public static ArrayList<Byte> getRepeatedValues(ArrayList<Card> hand) {
+    public static ArrayList<Integer> getRepeatedValues(ArrayList<Card> hand) {
         sortHand(hand);
-        ArrayList<Byte> handValuesArray = hand.stream()
+        ArrayList<Integer> handValuesArray = hand.stream()
                 .map(card -> card.faceValue)
                 .collect(Collectors.toCollection(ArrayList::new));
         return handValuesArray.stream()
@@ -41,7 +41,7 @@ public final class HandEvaluator {
     // If all cards share suit AND are consecutive values AND the last card is an Ace
     public static int hasRoyalFlush(ArrayList<Card> hand) {
         int rankValue = 10;
-        byte aceValue = 14;
+        int aceValue = 14;
         String handValuesString = getValuesAsString(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue
                 && straight.contains(handValuesString)
@@ -67,8 +67,8 @@ public final class HandEvaluator {
     // If there are four repeating values
     public static int hasFourOfAKind(ArrayList<Card> hand) {
         int rankValue = 8;
-        byte length = 4;
-        ArrayList<Byte> repeatedValues = getRepeatedValues(hand);
+        int length = 4;
+        ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length
                 && Objects.equals(repeatedValues.get(0), repeatedValues.get(length - 1))) {
             return rankValue * rankInterval + repeatedValues.get(length - 1);
@@ -80,8 +80,8 @@ public final class HandEvaluator {
     // If there are 5 repeated values, they have to be a pair and a triple
     public static int hasFullHouse(ArrayList<Card> hand) {
         int rankValue = 7;
-        byte length = 5;
-        ArrayList<Byte> repeatedValues = getRepeatedValues(hand);
+        int length = 5;
+        ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return rankValue * rankInterval + repeatedValues.get(length - 1);
         }
@@ -114,8 +114,8 @@ public final class HandEvaluator {
     // If there are three repeating values
     public static int hasThreeOfAKind(ArrayList<Card> hand) {
         int rankValue = 4;
-        byte length = 3;
-        ArrayList<Byte> repeatedValues = getRepeatedValues(hand);
+        int length = 3;
+        ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return rankValue * rankInterval + repeatedValues.get(length - 1);
         }
@@ -126,8 +126,8 @@ public final class HandEvaluator {
     // If there are four repeated values, but they're not all the same
     public static int hasTwoPairs(ArrayList<Card> hand) {
         int rankValue = 3;
-        byte length = 4;
-        ArrayList<Byte> repeatedValues = getRepeatedValues(hand);
+        int length = 4;
+        ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return rankValue * rankInterval + repeatedValues.get(length - 1);
         }
@@ -138,8 +138,8 @@ public final class HandEvaluator {
     // If there are two repeated values
     public static int hasPair(ArrayList<Card> hand) {
         int rankValue = 2;
-        byte length = 2;
-        ArrayList<Byte> repeatedValues = getRepeatedValues(hand);
+        int length = 2;
+        ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
             return rankValue * rankInterval + repeatedValues.get(length - 1);
         }
