@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
     public String name;
     public ArrayList<Card> hand = new ArrayList<>();
-    public short victories = 0;
+    public int victories = 0;
 
     // Takes a card as a string and creates a new card object, adds it to the player's hand
     public void addCard(String cardAsString) {

@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Main {
     public static void main( String[] args ) throws InvalidGameString {
 
-        byte playerCount = 2;
-        byte handSize = 5;
+        int playerCount = 2;
+        int handSize = 5;
         PokerGame poker = new PokerGame(playerCount, handSize);
         ArrayList<String> games = new ArrayList<>();
 

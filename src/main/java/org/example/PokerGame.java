@@ -5,13 +5,13 @@ import java.util.Arrays;
 
 public class PokerGame {
     ArrayList<Player> players = new ArrayList<>();
-    public byte handSize;
+    public int handSize;
 
     // Create all the players for the game and set the hand size
-    public PokerGame(byte playerCount, byte handSize) {
+    public PokerGame(int playerCount, int handSize) {
         if (playerCount != 2) throw new IllegalArgumentException("This poker game requires two players!");
         if (handSize != 5) throw new IllegalArgumentException("There needs to be 5 cards per player");
-        for (byte i=0; i<playerCount; i++) {
+        for (int i=0; i<playerCount; i++) {
             players.add(new Player("Player " + (i+1)));
         }
         this.handSize = handSize;
