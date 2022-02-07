@@ -29,7 +29,7 @@ public class Card {
                 break;
             default:
                 int intValue = Integer.parseInt(String.valueOf(faceValue));
-                if (intValue < 10 && intValue > 1) {
+                if (intValue <= FaceValue.MAX.numValue && intValue >= FaceValue.MIN.numValue) {
                     this.faceValue = intValue;
                 } else {
                     throw new IllegalArgumentException("An invalid character was passed to this card.");

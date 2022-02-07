@@ -5,7 +5,9 @@ public enum FaceValue {
     J(11),
     Q(12),
     K(13),
-    A(14);
+    A(14),
+    MIN(2),
+    MAX(9);
 
     final int numValue;
 
