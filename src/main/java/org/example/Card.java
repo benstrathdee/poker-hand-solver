@@ -28,7 +28,7 @@ public class Card {
                 this.faceValue = FaceValue.A.numValue;
                 break;
             default:
-                int intValue = Integer.parseInt(String.valueOf(faceValue));
+                int intValue = Character.getNumericValue(faceValue);
                 if (intValue <= FaceValue.MAX.numValue && intValue >= FaceValue.MIN.numValue) {
                     this.faceValue = intValue;
                 } else {
