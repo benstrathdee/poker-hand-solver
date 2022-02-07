@@ -52,7 +52,7 @@ public final class HandEvaluator {
         String handValuesString = getValuesAsString(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue
                 && straight.contains(handValuesString))) {
-            return RankValue.ROYAL_FLUSH.numValue * RankValue.INTERVAL.numValue + hand.get(hand.size() - 1).faceValue;
+            return RankValue.STRAIGHT_FLUSH.numValue * RankValue.INTERVAL.numValue + hand.get(hand.size() - 1).faceValue;
         }
         return RankValue.DEFAULT.numValue;
     }
@@ -66,7 +66,7 @@ public final class HandEvaluator {
                 && Objects.equals(repeatedValues.get(0), repeatedValues.get(length - 1))) {
             return RankValue.FOUR_OF_A_KIND.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return RankValue.INTERVAL.numValue;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 7 - full house
