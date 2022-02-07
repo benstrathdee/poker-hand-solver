@@ -6,7 +6,7 @@ public class Card {
 
     @Override
     public String toString() {
-        return String.format("%d|%d", faceValue, suitValue);
+        return faceValue + "|" + suitValue;
     }
 
     // Takes the two values from the string representation of a card, creates a new Card object

@@ -12,7 +12,7 @@ public class PokerGame {
         if (playerCount <= 0) throw new IllegalArgumentException("A poker game needs more players than that!");
         if (handSize < 5) throw new IllegalArgumentException("You need at least 5 cards in each player's hand!");
         for (byte i=0; i<playerCount; i++) {
-            players.add(new Player(String.format("Player %d", i+1)));
+            players.add(new Player("Player " + (i+1)));
         }
         this.handSize = handSize;
     }

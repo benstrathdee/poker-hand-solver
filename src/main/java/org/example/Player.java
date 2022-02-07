@@ -42,7 +42,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return String.format("%s: %d", name, victories);
+        return name + ": " + victories;
     }
 
     public Player(String name) {
