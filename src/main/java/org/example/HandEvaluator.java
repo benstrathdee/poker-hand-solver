@@ -6,9 +6,6 @@ import java.util.stream.Collectors;
 
 public final class HandEvaluator {
     static String straight = "234567891011121314";
-    static int rankInterval = 20;
-    static int defaultRank = 1;
-
 
     // Sorts the hand by face value, then suit value for ease of evaluation
     public static void sortHand(ArrayList<Card> hand) {
@@ -40,110 +37,100 @@ public final class HandEvaluator {
     // rank 10 - royal flush
     // If all cards share suit AND are consecutive values AND the last card is an Ace
     public static int hasRoyalFlush(ArrayList<Card> hand) {
-        int rankValue = 10;
-        int aceValue = 14;
         String handValuesString = getValuesAsString(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue
                 && straight.contains(handValuesString)
-                && hand.get(hand.size()-1).faceValue == aceValue)) {
-            return rankValue * rankInterval;
+                && hand.get(hand.size()-1).faceValue == FaceValue.A.numValue)) {
+            return RankValue.ROYAL_FLUSH.numValue * RankValue.INTERVAL.numValue;
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 9 - straight flush
     // If all cards share a suite AND are consecutive values
     public static int hasStraightFlush(ArrayList<Card> hand) {
-        int rankValue = 9;
         String handValuesString = getValuesAsString(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue
                 && straight.contains(handValuesString))) {
-            return rankValue * rankInterval + hand.get(hand.size() - 1).faceValue;
+            return RankValue.ROYAL_FLUSH.numValue * RankValue.INTERVAL.numValue + hand.get(hand.size() - 1).faceValue;
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 8 - four of a kind
     // If there are four repeating values
     public static int hasFourOfAKind(ArrayList<Card> hand) {
-        int rankValue = 8;
         int length = 4;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length
                 && Objects.equals(repeatedValues.get(0), repeatedValues.get(length - 1))) {
-            return rankValue * rankInterval + repeatedValues.get(length - 1);
+            return RankValue.FOUR_OF_A_KIND.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return defaultRank;
+        return RankValue.INTERVAL.numValue;
     }
 
     // rank 7 - full house
     // If there are 5 repeated values, they have to be a pair and a triple
     public static int hasFullHouse(ArrayList<Card> hand) {
-        int rankValue = 7;
         int length = 5;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
-            return rankValue * rankInterval + repeatedValues.get(length - 1);
+            return RankValue.FULL_HOUSE.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 6 - flush
     // If all cards share the same suit
     public static int hasFlush(ArrayList<Card> hand) {
-        int rankValue = 6;
         sortHand(hand);
         if (hand.stream().allMatch(card -> card.suitValue == hand.get(0).suitValue)) {
-            return rankValue * rankInterval + hand.get(hand.size() - 1).faceValue;
+            return RankValue.FLUSH.numValue * RankValue.INTERVAL.numValue + hand.get(hand.size() - 1).faceValue;
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 5 - straight
     // If all cards are consecutively ordered
     public static int hasStraight(ArrayList<Card> hand) {
-        int rankValue = 5;
         String handValuesString = getValuesAsString(hand);
         if (straight.contains(handValuesString)) {
-            return rankValue * rankInterval + hand.get(hand.size() - 1).faceValue;
+            return RankValue.STRAIGHT.numValue * RankValue.INTERVAL.numValue + hand.get(hand.size() - 1).faceValue;
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 4 - three of a kind
     // If there are three repeating values
     public static int hasThreeOfAKind(ArrayList<Card> hand) {
-        int rankValue = 4;
         int length = 3;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
-            return rankValue * rankInterval + repeatedValues.get(length - 1);
+            return RankValue.THREE_OF_A_KIND.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 3 - two pairs
     // If there are four repeated values, but they're not all the same
     public static int hasTwoPairs(ArrayList<Card> hand) {
-        int rankValue = 3;
         int length = 4;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
-            return rankValue * rankInterval + repeatedValues.get(length - 1);
+            return RankValue.TWO_PAIR.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
 
     // rank 2 - single pair
     // If there are two repeated values
     public static int hasPair(ArrayList<Card> hand) {
-        int rankValue = 2;
         int length = 2;
         ArrayList<Integer> repeatedValues = getRepeatedValues(hand);
         if (repeatedValues.size() == length) {
-            return rankValue * rankInterval + repeatedValues.get(length - 1);
+            return RankValue.PAIR.numValue * RankValue.INTERVAL.numValue + repeatedValues.get(length - 1);
         }
-        return defaultRank;
+        return RankValue.DEFAULT.numValue;
     }
     private HandEvaluator(){}
 }
