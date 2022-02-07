@@ -1,8 +1,8 @@
 package org.example;
 
 public class Card {
-    public byte faceValue;
-    public byte suitValue;
+    public int faceValue;
+    public int suitValue;
 
     @Override
     public String toString() {
@@ -12,18 +12,44 @@ public class Card {
     // Takes the two values from the string representation of a card, creates a new Card object
     public Card(char faceValue, char suitValue) {
         switch (faceValue) {
-            case 'T' -> this.faceValue = (byte) 10;
-            case 'J' -> this.faceValue = (byte) 11;
-            case 'Q' -> this.faceValue = (byte) 12;
-            case 'K' -> this.faceValue = (byte) 13;
-            case 'A' -> this.faceValue = (byte) 14;
-            default -> this.faceValue = Byte.parseByte(Character.toString(faceValue));
+            case 'T':
+                this.faceValue = FaceValue.T.numValue;
+                break;
+            case 'J':
+                this.faceValue = FaceValue.J.numValue;
+                break;
+            case 'Q':
+                this.faceValue = FaceValue.Q.numValue;
+                break;
+            case 'K':
+                this.faceValue = FaceValue.K.numValue;
+                break;
+            case 'A':
+                this.faceValue = FaceValue.A.numValue;
+                break;
+            default:
+                int intValue = Integer.parseInt(String.valueOf(faceValue));
+                if (intValue < 10 && intValue > 1) {
+                    this.faceValue = intValue;
+                } else {
+                    throw new IllegalArgumentException("An invalid character was passed to this card.");
+                }
         }
         switch (suitValue) {
-            case 'C' -> this.suitValue = (byte) 0;
-            case 'S' -> this.suitValue = (byte) 1;
-            case 'D' -> this.suitValue = (byte) 2;
-            case 'H' -> this.suitValue = (byte) 3;
+            case 'C':
+                this.suitValue = SuitValue.C.numValue;
+                break;
+            case 'S':
+                this.suitValue = SuitValue.S.numValue;
+                break;
+            case 'D':
+                this.suitValue = SuitValue.D.numValue;
+                break;
+            case 'H':
+                this.suitValue = SuitValue.H.numValue;
+                break;
+            default:
+                throw new IllegalArgumentException("An invalid character was passed to this card.");
         }
     }
 }
