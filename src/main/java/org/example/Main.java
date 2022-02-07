@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class Main {
     public static void main( String[] args ) throws InvalidGameString {
 
-        // I made this a bit more scalable, so you can pass in poker-hands.txt files with more cards or more players
         byte playerCount = 2;
         byte handSize = 5;
         PokerGame poker = new PokerGame(playerCount, handSize);

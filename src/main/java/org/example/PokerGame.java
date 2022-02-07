@@ -9,8 +9,8 @@ public class PokerGame {
 
     // Create all the players for the game and set the hand size
     public PokerGame(byte playerCount, byte handSize) {
-        if (playerCount <= 0) throw new IllegalArgumentException("A poker game needs more players than that!");
-        if (handSize < 5) throw new IllegalArgumentException("You need at least 5 cards in each player's hand!");
+        if (playerCount != 2) throw new IllegalArgumentException("This poker game requires two players!");
+        if (handSize != 5) throw new IllegalArgumentException("There needs to be 5 cards per player");
         for (byte i=0; i<playerCount; i++) {
             players.add(new Player("Player " + (i+1)));
         }
