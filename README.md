@@ -1,7 +1,9 @@
-# argenti-poker-exercise
+# poker-hand-solver
 
-A tech test that requires writing a command line program to evaluate poker hands
+A project that requires writing a command line program to evaluate poker hands
 and determine a winner.
+
+Takes a file "poker-hands.txt" containing strings representing two hands of poker, and determines which hand wins.
 
 # Instructions
 
